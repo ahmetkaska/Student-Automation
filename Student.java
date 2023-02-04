@@ -16,8 +16,8 @@ public class Student extends Person {
     private int studentNumber;
     private String department;
 
-    public Student(String name, String surname, int age, String address, String telephoneNumber, int studentNumber, String department) {
-        super(name, surname, age, address, telephoneNumber);
+    public Student(String name, String surname, String password, int age, String address, String telephoneNumber, int studentNumber, String department) {
+        super(name, surname, password, age, address, telephoneNumber);
         this.studentNumber = studentNumber;
         this.department = department;
         this.coursesOfStudentList = new ArrayList<>();

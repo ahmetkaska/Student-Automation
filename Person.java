@@ -17,14 +17,16 @@ public class Person extends Operations{
     private int age;
     private String address;
     private String telephoneNumber;
+    private String password;
     
     public Person(){
-        this("Not Information", "Not Information", 0, "Not Information", "Not Information");
+        this("Not Information", "Not Information", "Not Information", 0, "Not Information", "Not Information");
     }
 
-    public Person(String name, String surname, int age, String address, String telephoneNumber) {
+    public Person(String name, String surname, String password, int age, String address, String telephoneNumber) {
         this.name = name;
         this.surname = surname;
+        this.password = password;
         this.age = age;
         this.address = address;
         this.telephoneNumber = telephoneNumber;
@@ -45,6 +47,15 @@ public class Person extends Operations{
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
 
     public int getAge() {
         return age;

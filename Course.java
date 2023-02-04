@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author ahmetkaska
  */
-public class Course {
+public class Course extends Operations{
     ArrayList<Student> studentListOfCourse;
     static private int courseId = 0;
     private String courseTittle;

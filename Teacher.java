@@ -16,8 +16,8 @@ public class Teacher extends Person{
     private String department;
     private String graduatedSchool;
     
-    public Teacher(String name, String surname, int age, String address, String telephoneNumber, String department, String graduatedSchool){
-        super(name, surname, age, address, telephoneNumber);
+    public Teacher(String name, String surname, String password, int age, String address, String telephoneNumber, String department, String graduatedSchool){
+        super(name, surname, password, age, address, telephoneNumber);
         this.department = department;
         this.graduatedSchool = graduatedSchool;
         courseListOfTeacher = new ArrayList<>();

@@ -10,7 +10,7 @@ package StudentAutomation;
  */
 public class Test {
     public static void main(String[] args) {
-        
+        /*
         Course c = new Course("Bp2", 60.4, 3);
         Course a = new Course("Bp3", 30.4, 4);
         Student s = new Student("Ahmet", "Kaska", 24, "Sultangazi", "0537 *** ** **", 36, "Computer Engineering");
@@ -36,9 +36,9 @@ public class Test {
                 System.out.println(t.courseListOfTeacher.get(i).studentListOfCourse.get(j).toString());
             }
         }
-        t.listAddElement(t.courseListOfTeacher, a);
+        t.listAddObject(t.courseListOfTeacher, a);
         t.coursesOfTeacher();
-       
+       */
         
         
     }
