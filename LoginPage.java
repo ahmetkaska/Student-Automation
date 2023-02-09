@@ -1,9 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package StudentAutomation;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,17 +16,34 @@ import javax.swing.JOptionPane;
 public class LoginPage extends javax.swing.JFrame {
 
     Student student = new Student("Ahmet", "Kaska", "ahmetkaska", 24, "Sultangazi", "0537 *** ** **", 36, "Computer Engineering");
-    Teacher teacher = new Teacher("Ali", "Nizam", "alinizam", 40, "Beyoglu", "0536 *** ** **", "Computer Science", "Yildiz Teknik Uni.");
-    Admin admin = new Admin("Fatih", "Terim", "imparator", 60, "Fulya", "0532 1905 19 05", "Student Managment");
+    Teacher teacher = new Teacher("Ali", "Nizam", "alinizam", 40, "Beyoglu", "0536 *** ** **", "Computer Science", "manager");
+    Admin admin = new Admin("Fatih", "Terim", "imparator", 60, "Fulya", "0532 1905 19 05", "Computer Science", "Student Managment");
 
     /**
      * Creates new form LoginPage
      */
+    private static Connection conn = null;
+    //String connectionUrl = "jdbc:derby://localhost:1527/StudentAutomation;create=true";
+
     public LoginPage() {
 
         initComponents();
 
     }
+//
+//    public static Connection java_db(String url) {
+//        try {
+//            Class.forName("org.sqlite.JDBC");
+//            Connection conn = DriverManager.getConnection(url);
+//            System.out.println("Baglandi");
+//            return conn;
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, ex);
+//            System.out.println("Baglanmadi");
+//            return null;
+//        }
+//
+//    }
 
     public void checkLogin(Person object) {
         Login log = new Login(object.getName(), object.getPassword());;
@@ -42,7 +62,9 @@ public class LoginPage extends javax.swing.JFrame {
             }
         } else if (object.equals(admin)) {
             if (log.login(txt_admin_userName.getText(), txt_admin_password.getText())) {
-                System.out.println("Giris yapildi");
+                AdminPanel admin =new AdminPanel();
+                admin.show();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Your Username or Password is Wrong!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -399,8 +421,8 @@ public class LoginPage extends javax.swing.JFrame {
         checkLogin(admin);
         txt_admin_userName.setText("");
         txt_admin_password.setText("");
-         new AdminPanel().show();
         
+
     }//GEN-LAST:event_btn_admin_loginActionPerformed
 
     private void check_admin_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_admin_passwordActionPerformed
@@ -412,11 +434,91 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_check_admin_passwordActionPerformed
 
+    DbHelper db = new DbHelper();
+    PreparedStatement statement = null;
     private void btn_teacher_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_loginActionPerformed
         // TODO add your handling code here:
         checkLogin(teacher);
+        if (teacher.getStatus() == "manager") {
+            /*
+            String sql = "INSERT INTO ROOT.ADMIN (NAME, SURNAME, PASSWORD, AGE, ADDRESS, TELEPHONENUMBER, DEPARTMENT, STATUS) "
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement inst = null;
+            try {
+                conn = DriverManager.getConnection(connectionUrl, "root", "admin");
+                inst = conn.prepareStatement(sql);
+                inst.setString(1, teacher.getName());
+                inst.setString(2, teacher.getSurname());
+                inst.setString(3, teacher.getPassword());
+                inst.setInt(4, teacher.getAge());
+                inst.setString(5, teacher.getAddress());
+                inst.setString(6, teacher.getTelephoneNumber());
+                inst.setString(7, teacher.getDepartment());
+                inst.setString(8, teacher.getStatus());
+                inst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Successfully Added");
+
+            } catch (SQLException e) {
+                Logger.getLogger(admin.getName()).log(Level.SEVERE, null, e);
+
+            } finally {
+                if (inst != null) {
+                    try {
+                        inst.close();
+                    } catch (SQLException e) {
+                        Logger.getLogger(admin.getName()).log(Level.SEVERE, null, e);
+
+                    }
+                }
+            }
+            
+            System.out.println("-------------------");
+            try{
+                String dbURL1 = "jdbc:derby://localhost:1527/StudentAutomation;create=true";
+            Connection conn1 = DriverManager.getConnection(dbURL1);
+            if (conn1 != null) {
+                System.out.println("Connected to database #1");
+            }
+            }
+            catch(SQLException e){
+                 e.printStackTrace();
+            }
+            
+             
+        }
+
+        try {
+            conn = db.getConnection();
+            //(NAME, SURNAME, PASSWORD, AGE, ADDRESS, TELEPHONENUMBER, DEPARTMENT, STATUS)
+            String sql = "INSERT INTO StudentAutomation.admin  "
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, teacher.getName());
+            statement.setString(2, teacher.getSurname());
+            statement.setString(3, teacher.getPassword());
+            statement.setInt(4, teacher.getAge());
+            statement.setString(5, teacher.getAddress());
+            statement.setString(6, teacher.getTelephoneNumber());
+            statement.setString(7, teacher.getDepartment());
+            statement.setString(8, teacher.getStatus());
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Successfully Added");
+
+        } catch (SQLException ex) {
+            db.ShowError(ex);
+        } finally {
+            try {
+                statement.close();
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+       */
         txt_teacher_userName.setText("");
         txt_teacher_password.setText("");
+        }
     }//GEN-LAST:event_btn_teacher_loginActionPerformed
 
     private void check_teacher_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_teacher_passwordActionPerformed

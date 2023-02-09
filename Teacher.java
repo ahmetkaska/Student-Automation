@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package StudentAutomation;
 
 import java.util.ArrayList;
@@ -14,12 +11,14 @@ public class Teacher extends Person{
     
     ArrayList<Course> courseListOfTeacher;
     private String department;
-    private String graduatedSchool;
     
-    public Teacher(String name, String surname, String password, int age, String address, String telephoneNumber, String department, String graduatedSchool){
+    private String status;
+    
+    public Teacher(String name, String surname, String password, int age, String address, String telephoneNumber, String department,  String status){
         super(name, surname, password, age, address, telephoneNumber);
         this.department = department;
-        this.graduatedSchool = graduatedSchool;
+       
+        this.status = status;
         courseListOfTeacher = new ArrayList<>();
     }
 
@@ -31,18 +30,21 @@ public class Teacher extends Person{
         this.department = department;
     }
 
-    public String getGraduatedSchool() {
-        return graduatedSchool;
+ 
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setGraduatedSchool(String graduatedSchool) {
-        this.graduatedSchool = graduatedSchool;
+    public void setStatus(String status) {
+        this.status = status;
     }
-
+    
+    
     @Override
     public void showInformation() {
         super.showInformation(); 
-        System.out.println(" Department : " + this.department + " Graduated School : " + this.graduatedSchool);
+        System.out.println(" Department : " + this.department + " Status : " + this.status);
     }
     
     public void coursesOfTeacher(){
@@ -50,6 +52,11 @@ public class Teacher extends Person{
             System.out.println("* " + this.courseListOfTeacher.get(i).toString());
             System.out.println("/////////////////////////////////////////////////////");
         }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Department : " + this.department + " Status : " + this.status; 
     }
     
     
