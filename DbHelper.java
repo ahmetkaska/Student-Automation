@@ -1,7 +1,8 @@
 
-package StudentAutomation;
+package StudentAutomations;
 
-//import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Connection;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,8 +16,9 @@ public class DbHelper {
  
     static String username = "root";
     static String password = "12345678";
-    static String dbUrl = "jdbc:mysql://localhost:3306/Other databases/StudentAutomation.db";
-    
+    static String dbUrl = "jdbc:mysql://localhost:3306/SchoolAutomation";
+       
+
     public Connection getConnection() throws SQLException{
         return (Connection) DriverManager.getConnection(dbUrl,username,password);
     }

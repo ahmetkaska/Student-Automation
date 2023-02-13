@@ -1,5 +1,5 @@
 
-package StudentAutomation;
+package StudentAutomations;
 
 /**
  *

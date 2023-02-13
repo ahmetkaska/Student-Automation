@@ -1,4 +1,4 @@
-package StudentAutomation;
+package StudentAutomations;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package StudentAutomation;
 
+package StudentAutomations;
+
+import StudentAutomations.Operations;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +22,7 @@ public class Person extends Operations{
     }
 
     public Person(String name, String surname, String password, int age, String address, String telephoneNumber) {
+        
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -31,6 +30,9 @@ public class Person extends Operations{
         this.address = address;
         this.telephoneNumber = telephoneNumber;
     }
+
+    
+    
 
     public String getName() {
         return name;

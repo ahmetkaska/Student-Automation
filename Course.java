@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package StudentAutomation;
 
+package StudentAutomations;
+
+import StudentAutomations.Student;
 import java.util.ArrayList;
 
 /**
@@ -14,13 +12,13 @@ public class Course extends Operations{
     ArrayList<Student> studentListOfCourse;
     static private int courseId = 0;
     private String courseTittle;
-    private double grade;
+    private double passGrade;
     private int credits;
 
-    public Course( String courseTittle, double grade, int credits) {
+    public Course( String courseTittle, double passGrade, int credits) {
         courseId++;
         this.courseTittle = courseTittle;
-        this.grade = grade;
+        this.passGrade = passGrade;
         this.credits = credits;
         studentListOfCourse = new ArrayList<>();
     }
@@ -41,12 +39,12 @@ public class Course extends Operations{
         this.courseTittle = courseTittle;
     }
 
-    public double getGrade() {
-        return grade;
+    public double getPassGrade() {
+        return passGrade;
     }
 
-    public void setGrade(double grade) {
-        this.grade = grade;
+    public void setPassGrade(double grade) {
+        this.passGrade = grade;
     }
 
     public int getCredits() {
@@ -59,14 +57,14 @@ public class Course extends Operations{
   
      
     public void showCourseInformation(){
-        String info = "Course ID : " + courseId + " --> Course Title : " + this.courseTittle + " Grade of Course : " + this.grade + " Credits of Course : " + this.credits;
+        String info = "Course ID : " + courseId + " --> Course Title : " + this.courseTittle + " Grade of Course : " + this.passGrade + " Credits of Course : " + this.credits;
         System.out.println(info);
         
     }
 
     @Override
     public String toString() {
-        return "Course ID : " + courseId + " --> Course Title : " + this.courseTittle + " Grade of Course : " + this.grade + " Credits of Course : " + this.credits;
+        return "Course ID : " + courseId + " --> Course Title : " + this.courseTittle + " Grade of Course : " + this.passGrade + " Credits of Course : " + this.credits;
     }
     
     public void studentsOfCourse(){

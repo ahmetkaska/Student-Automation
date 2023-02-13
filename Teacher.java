@@ -1,6 +1,8 @@
 
-package StudentAutomation;
+package StudentAutomations;
 
+import StudentAutomations.Person;
+import StudentAutomations.Course;
 import java.util.ArrayList;
 
 /**
@@ -10,17 +12,27 @@ import java.util.ArrayList;
 public class Teacher extends Person{
     
     ArrayList<Course> courseListOfTeacher;
+    static int teacherId = 8;
     private String department;
     
     private String status;
     
     public Teacher(String name, String surname, String password, int age, String address, String telephoneNumber, String department,  String status){
         super(name, surname, password, age, address, telephoneNumber);
+        teacherId++;
         this.department = department;
-       
         this.status = status;
         courseListOfTeacher = new ArrayList<>();
     }
+
+    public static int getTeacherId() {
+        return teacherId;
+    }
+
+    public static void setTeacherId(int teacherId) {
+        Teacher.teacherId = teacherId;
+    }
+    
 
     public String getDepartment() {
         return department;

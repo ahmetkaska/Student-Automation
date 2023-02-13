@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package StudentAutomation;
+
+package StudentAutomations;
 
 import java.util.ArrayList;
 
@@ -13,15 +10,26 @@ import java.util.ArrayList;
 public class Student extends Person {
 
     ArrayList<Course> coursesOfStudentList;
+    static int studentId = 1000;
     private int studentNumber;
     private String department;
 
     public Student(String name, String surname, String password, int age, String address, String telephoneNumber, int studentNumber, String department) {
         super(name, surname, password, age, address, telephoneNumber);
+        studentId++;
         this.studentNumber = studentNumber;
         this.department = department;
         this.coursesOfStudentList = new ArrayList<>();
     }
+
+    public static int getStudentId() {
+        return studentId;
+    }
+
+    public static void setStudentId(int studentId) {
+        Student.studentId = studentId;
+    }
+    
 
     public String getDepartment() {
         return department;

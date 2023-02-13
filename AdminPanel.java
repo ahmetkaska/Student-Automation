@@ -1,33 +1,58 @@
+package StudentAutomations;
 
-package StudentAutomation;
-
-import java.util.ArrayList;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ahmetkaska
  */
-public class AdminPanel extends javax.swing.JFrame{
-   Admin admin = new Admin("Fatih", "Terim", "imparator", 60, "Fulya", "0532 1905 19 05", "Computer Science", "Student Managment");
-   
-        
-    
+public class AdminPanel extends javax.swing.JFrame {
+
     /**
      * Creates new form AdminPanel
      */
     public AdminPanel() {
-       
+
         initComponents();
-        String age = Integer.toString(admin.getAge());
-        lbl_admin_name1.setText(admin.getName());
-        lbl_admin_surname.setText(admin.getSurname());
-        lbl_admin_password.setText(admin.getPassword());
-        lbl_admin_age.setText(age);
-        lbl_admin_address.setText(admin.getAddress());
-        lbl_admin_telephoneNumber.setText(admin.getTelephoneNumber());
-        lbl_admin_department.setText(admin.getDepartment());
-        lbl_admin_status.setText(admin.getStatus());
+        showAdminInformations();
+    }
+
+    public void showAdminInformations() {
+        try {
+            //Connect to Database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/SchoolAutomation", "root", "12345678");
+
+            Statement query = connect.createStatement();
+            ResultSet rs = query.executeQuery("Select * From SchoolAutomation.admin");
+
+            while (rs.next()) {
+
+                String age = Integer.toString(rs.getInt("age"));
+                lbl_admin_name1.setText(rs.getString("name"));
+                lbl_admin_surname.setText(rs.getString("surname"));
+                lbl_admin_password.setText(rs.getString("password"));
+                lbl_admin_age.setText(age);
+                lbl_admin_address.setText(rs.getString("address"));
+                lbl_admin_telephoneNumber.setText(rs.getString("telephone"));
+                lbl_admin_department.setText(rs.getString("department"));
+                lbl_admin_status.setText(rs.getString("status"));
+
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -162,9 +187,10 @@ public class AdminPanel extends javax.swing.JFrame{
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
@@ -183,9 +209,19 @@ public class AdminPanel extends javax.swing.JFrame{
 
         btn_add_course.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         btn_add_course.setText("ADD COURSE");
+        btn_add_course.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add_courseActionPerformed(evt);
+            }
+        });
 
         btn_add_student.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         btn_add_student.setText("ADD STUDENT");
+        btn_add_student.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add_studentActionPerformed(evt);
+            }
+        });
 
         lbl_message.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         lbl_message.setText("   Welcome to Dear Admin");
@@ -245,10 +281,6 @@ public class AdminPanel extends javax.swing.JFrame{
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(298, 298, 298)
-                .addComponent(jLabel13)
-                .addGap(18, 160, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
@@ -275,7 +307,7 @@ public class AdminPanel extends javax.swing.JFrame{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lbl_admin_department)
                                 .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -287,6 +319,10 @@ public class AdminPanel extends javax.swing.JFrame{
                     .addComponent(lbl_admin_age)
                     .addComponent(lbl_admin_telephoneNumber)
                     .addComponent(lbl_admin_status))
+                .addContainerGap(139, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(jLabel13)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -379,15 +415,26 @@ public class AdminPanel extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btn_add_teacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_teacherActionPerformed
         // TODO add your handling code here:
         AddTeacher createTeacher = new AddTeacher();
         createTeacher.show();
-        
 
-        
+
     }//GEN-LAST:event_btn_add_teacherActionPerformed
+
+    private void btn_add_studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_studentActionPerformed
+        // TODO add your handling code here:
+        AddStudent createStudent = new AddStudent();
+        createStudent.show();
+    }//GEN-LAST:event_btn_add_studentActionPerformed
+
+    private void btn_add_courseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_courseActionPerformed
+        // TODO add your handling code here:
+        AddCourse createCourse = new AddCourse();
+        createCourse.show();
+    }//GEN-LAST:event_btn_add_courseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,7 +466,7 @@ public class AdminPanel extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 new AdminPanel().setVisible(true);
             }
         });
@@ -464,4 +511,5 @@ public class AdminPanel extends javax.swing.JFrame{
     private javax.swing.JLabel lbl_admin_telephoneNumber;
     private javax.swing.JLabel lbl_message;
     // End of variables declaration//GEN-END:variables
+
 }
