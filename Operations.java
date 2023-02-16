@@ -29,6 +29,10 @@ public class Operations <T>{ // This class is generic for decreasing code repita
         
     }
     
+    public void giveGrades(){
+        
+    }
+    
     
     
 }

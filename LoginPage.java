@@ -3,8 +3,8 @@ package StudentAutomations;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,9 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class LoginPage extends javax.swing.JFrame {
 
-    Student student = new Student("Ahmet", "Kaska", "ahmetkaska", 24, "Sultangazi", "0537 *** ** **", 36, "Computer Engineering");
-    Teacher teacher = new Teacher("Ali", "Nizam", "alinizam", 40, "Beyoglu", "0536 *** ** **", "Computer Science", "manager");
+    ArrayList<Student> allStudent = new ArrayList<>();
+
+    //Student student = new Student("Ahmet", "Kaska", "ahmetkaska", 24, "Sultangazi", "0537 *** ** **", 36, "Computer Engineering");
+    //Teacher teacher = new Teacher("Ali", "Nizam", "alinizam", 40, "Beyoglu", "0536 *** ** **", "Computer Science", "manager");
+    Student student;
     Admin admin;
+    Teacher teacher;
 
     /**
      * Creates new form LoginPage
@@ -32,15 +36,18 @@ public class LoginPage extends javax.swing.JFrame {
 
         Login log = new Login(object.getName(), object.getPassword());;
         if (object.equals(student)) {
-
+            System.out.println("Student giris yapti");
             if (log.login(txt_student_userName.getText(), txt_student_password.getText())) {
-                System.out.println("Giris yapildi");
+                System.out.println("Giris yapildi student");
+                student.showInformation();
+                return;
             } else {
                 JOptionPane.showMessageDialog(null, "Your Username or Password is Wrong!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (object.equals(teacher)) {
             if (log.login(txt_teacher_userName.getText(), txt_teacher_password.getText())) {
-                System.out.println("Giris yapildi");
+                TeacherPanel tc = new TeacherPanel();
+                tc.show();
             } else {
                 JOptionPane.showMessageDialog(null, "Your Username or Password is Wrong!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -342,7 +349,7 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -385,7 +392,31 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_student_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_student_loginActionPerformed
-        checkLogin(student);
+
+           try {
+            //Connect to Database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/SchoolAutomation", "root", "12345678");
+
+            Statement query = connect.createStatement();
+            ResultSet rs = query.executeQuery("Select * From SchoolAutomation.students");
+
+            while (rs.next()) {
+                student = new Student(rs.getString("name"), rs.getString("surname"), rs.getString("password"), rs.getInt("age"), rs.getString("address"), rs.getString("telephone"), rs.getInt("student_number"), rs.getString("department"));
+                
+                checkLogin(student);
+                
+            }
+            
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+           
         txt_student_userName.setText("");
         txt_student_password.setText("");
     }//GEN-LAST:event_btn_student_loginActionPerformed
@@ -409,12 +440,12 @@ public class LoginPage extends javax.swing.JFrame {
 
             Statement query = connect.createStatement();
             ResultSet rs = query.executeQuery("Select * From SchoolAutomation.admin");
-            
+
             while (rs.next()) {
                 int age = Integer.parseInt(rs.getString("age"));
                 admin = new Admin(rs.getString("name"), rs.getString("surname"), rs.getString("password"), age, rs.getString("address"), rs.getString("telephone"), rs.getString("department"), rs.getString("status"));
                 checkLogin(admin);
-                admin.showInformation();
+                
             }
 
 //            System.out.println("Connected to Database");
@@ -443,12 +474,35 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void btn_teacher_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_loginActionPerformed
         // TODO add your handling code here:
-        checkLogin(teacher);
-        if (teacher.getStatus() == "manager") {
+         try {
+            //Connect to Database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/SchoolAutomation", "root", "12345678");
+
+            Statement query = connect.createStatement();
+            ResultSet rs = query.executeQuery("Select * From SchoolAutomation.teachers");
+
+            while (rs.next()) {
+                int age = Integer.parseInt(rs.getString("age"));
+                teacher = new Admin(rs.getString("name"), rs.getString("surname"), rs.getString("password"), age, rs.getString("address"), rs.getString("telephone"), rs.getString("department"), rs.getString("status"));
+                checkLogin(teacher);
+                
+            }
+
+//            System.out.println("Connected to Database");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FullDB.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
+        
 
             txt_teacher_userName.setText("");
             txt_teacher_password.setText("");
-        }
+        
     }//GEN-LAST:event_btn_teacher_loginActionPerformed
 
     private void check_teacher_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_teacher_passwordActionPerformed
