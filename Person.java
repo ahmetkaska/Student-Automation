@@ -1,28 +1,27 @@
-
 package StudentAutomations;
 
-import StudentAutomations.Operations;
 import java.util.ArrayList;
 
 /**
  *
  * @author ahmetkaska
  */
-public class Person extends Operations{
-    
+public class Person {
+
     private String name;
     private String surname;
     private int age;
     private String address;
     private String telephoneNumber;
     private String password;
-    
-    public Person(){
+
+    public Person() {
+        // If the object is created and no parameter is passed to the constructor method, the default values ​​will be assigned.
         this("Not Information", "Not Information", "Not Information", 0, "Not Information", "Not Information");
     }
 
     public Person(String name, String surname, String password, int age, String address, String telephoneNumber) {
-        
+
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -31,9 +30,7 @@ public class Person extends Operations{
         this.telephoneNumber = telephoneNumber;
     }
 
-    
-    
-
+    // Getter Setter (Encapsulation)
     public String getName() {
         return name;
     }
@@ -57,7 +54,6 @@ public class Person extends Operations{
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     public int getAge() {
         return age;
@@ -82,19 +78,17 @@ public class Person extends Operations{
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
-    
-    public void showInformation(){
+
+    // For testing
+    public void showInformation() {
         String info = "Name : " + this.name + " Surname : " + this.surname + " Age : " + this.age + " Address : " + this.address + " Telephone Number : " + this.telephoneNumber;
         System.out.print(info);
     }
+    // For testing, The toString() method is overridden because we store objects in lists.
 
     @Override
     public String toString() {
         return "Name : " + this.name + " Surname : " + this.surname + " Age : " + this.age + " Address : " + this.address + " Telephone Number : " + this.telephoneNumber;
     }
 
-    
-    
-    
-    
 }

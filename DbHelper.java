@@ -18,7 +18,7 @@ public class DbHelper {
     static String password = "12345678";
     static String dbUrl = "jdbc:mysql://localhost:3306/SchoolAutomation";
        
-
+    // For Connection
     public Connection getConnection() throws SQLException{
         return (Connection) DriverManager.getConnection(dbUrl,username,password);
     }

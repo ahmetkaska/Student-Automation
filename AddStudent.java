@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddStudent extends javax.swing.JFrame {
 
-    ArrayList<Student> allStudent = new ArrayList<>();
     Student student;
 
     /**
@@ -58,7 +57,7 @@ public class AddStudent extends javax.swing.JFrame {
         btn_addStudent_showStudents = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("- Create Teacher Panel -");
+        setTitle("- Create Student Panel -");
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -213,7 +212,7 @@ public class AddStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createStudentActionPerformed
-        // TODO add your handling code here:
+        // If the text fields are empty, a warning message is given.
 
         if (txt_addStudent_name.getText().equals("") || txt_addStudent_surname.getText().equals("") || txt_addStudent_password.getText().equals("") || txt_addStudent_telephoneNumber.getText().equals("") || txt_addStudent_department.getText().equals("")) {
 
@@ -222,16 +221,20 @@ public class AddStudent extends javax.swing.JFrame {
 
         } else {
 
-            int spinner = Integer.parseInt(spinner_addStudent_age.getValue().toString());
-            int number = Integer.parseInt(txt_addStudent_studentNumber.getText());
+            int spinner = Integer.parseInt(spinner_addStudent_age.getValue().toString()); // Convert object value to integer
+            int number = Integer.parseInt(txt_addStudent_studentNumber.getText());        // Convert string to integer
+
+            // Create student object
             student = new Student(txt_addStudent_name.getText(), txt_addStudent_surname.getText(), txt_addStudent_password.getText(), spinner, txt_addStudent_address.getText(), txt_addStudent_telephoneNumber.getText(), number, txt_addStudent_department.getText());
 
+            //Database Operations
             Connection conn = null;
             DbHelper db = new DbHelper();
             PreparedStatement statement = null;
 
             try {
-                conn = db.getConnection();
+                conn = db.getConnection(); // Connection database
+                // We save all the fields of the created student object to the database.
                 String sql = "Insert Into SchoolAutomation.students (id_students, name, surname, password, age, address, telephone, student_number, department) Values(?,?,?,?,?,?,?,?,?);";
                 statement = conn.prepareStatement(sql);
                 statement.setInt(1, student.getStudentId());
@@ -263,14 +266,9 @@ public class AddStudent extends javax.swing.JFrame {
                 }
 
             }
-            /*
-            DefaultTableModel tblModel = (DefaultTableModel) table_createStudent.getModel();
-            String id = Integer.toString(student.getStudentId());
-            String[] data = {id, txt_addStudent_name.getText(), txt_addStudent_surname.getText(), txt_addStudent_password.getText(), spinner_addStudent_age.getValue().toString(), txt_addStudent_address.getText(), txt_addStudent_telephoneNumber.getText(), txt_addStudent_studentNumber.getText(), txt_addStudent_department.getText()};
-            allStudent.add(student);
-            tblModel.addRow(data);
-             */
+
         }
+        // Emptying text fields
         txt_addStudent_name.setText("");
         txt_addStudent_surname.setText("");
         txt_addStudent_password.setText("");
@@ -281,13 +279,14 @@ public class AddStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_createStudentActionPerformed
 
     private void btn_addStudent_showStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addStudent_showStudentsActionPerformed
-        // TODO add your handling code here:
+        // Rearrange table field names.
         table_createStudent.setModel(new DefaultTableModel(null, new String[]{"id_students", "name", "surname", "password", "age", "address", "telephone", "student_number", "department"}));
         Connection conn = null;
         DbHelper db = new DbHelper();
-        
-        DefaultTableModel tblModel = (DefaultTableModel) table_createStudent.getModel();
-        String sql2 = "Select * From SchoolAutomation.students";
+
+        DefaultTableModel tblModel = (DefaultTableModel) table_createStudent.getModel(); // Show records
+        String sql2 = "Select * From SchoolAutomation.students"; // Sql query, select all columns students table
+        // We take the records on a line basis and give all fields as elements to the created String type array. So we show it in the table.
 
         try {
             conn = db.getConnection();
@@ -304,12 +303,11 @@ public class AddStudent extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             System.out.println("Exception : " + ex);
-        }
-       finally{
+        } finally {
             try {
-                
+
                 conn.close();
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(AddTeacher.class.getName()).log(Level.SEVERE, null, ex);
             }

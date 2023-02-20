@@ -1,17 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package StudentAutomations;
 
-/**
- *
- * @author ahmetkaska
- */
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+package StudentAutomations;
 
 /**
  *
@@ -34,17 +22,7 @@ public class FullDB {
             Connection connect = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/SchoolAutomation","root","12345678");
 
-            
 
-            /*Insert/Uodate data to Database
-            query.executeUpdate("INSERT INTO list" + "(name)" + "VALUES('orange'), ('melons')," +
-                    "('hotdogs'), ('buns')");
-              */
-            //Execute a select all statement
-            //Create a sql statement
-            
-
-//            System.out.println("Connected to Database");
         }
 
         catch (ClassNotFoundException ex){
