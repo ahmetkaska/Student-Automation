@@ -77,7 +77,7 @@ I implemented a student automation project in Java. I defined classes such as pe
 
 <img width="423" alt="image" src="https://user-images.githubusercontent.com/79384854/221425674-393f254f-993d-4a43-9dd0-fcc0e6f2f773.png">
            
-•	With the Show student button, the teacher records drawn from the database are displayed.
+•	With the Show student button, the student records drawn from the database are displayed.
           
 <img width="423" alt="image" src="https://user-images.githubusercontent.com/79384854/221425694-e2d53176-1bf4-4cf0-a3ad-92554ae8fe5b.png">
 
@@ -93,7 +93,7 @@ I implemented a student automation project in Java. I defined classes such as pe
 
 <img width="428" alt="image" src="https://user-images.githubusercontent.com/79384854/221425742-ddde9027-1f54-43c1-8e9a-900bc7b9472a.png">
       
-•	With the Show course button, the teacher records drawn from the database are displayed.
+•	With the Show course button, the couse records drawn from the database are displayed.
 
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/79384854/221425770-63ae4b83-93ab-4c14-8acb-7e6138079cc1.png">
       
